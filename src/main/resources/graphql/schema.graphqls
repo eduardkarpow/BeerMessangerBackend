@@ -1,0 +1,92 @@
+type Query{
+    getAllUsersHandler: [User]
+    getChatsHandler(phone: String): [UserExtended]
+    getChatHandler(id: Int): Chat
+}
+
+type Mutation{
+    addUserHandler(userInput: UserInput): User
+    registerHandler(userInput: UserInput): User
+    loginHandler(loginInput: LoginInput): User
+    addMessageHandler(messageInput: MessageInput): Message
+    addSenderHandler(senderInput: SenderInput): Sender
+    addReceiverHandler(receiverInput: ReceiverInput): Receiver
+    addChatHandler(chatInput: ChatInput): Chat
+    checkMessagesHandler(phonesInput: PhonesInput): [Message]
+}
+type Subscription {
+    messages: Message
+}
+type Chat {
+    id: ID!
+    sender: Sender!
+    receiver: Receiver!
+    messages: [Message]
+}
+input ChatInput {
+    sender: String!
+    receiver: String!
+}
+type Receiver {
+    id: ID!
+    chats: [Chat]
+    user: User!
+}
+input ReceiverInput {
+    phone: String!
+}
+type Sender {
+    id: ID!
+    chats: [Chat]
+    user: User!
+}
+input SenderInput {
+    phone: String!
+}
+type Message {
+    id: ID!
+    text: String!
+    attach: String
+    chat: Chat!
+    datetime: String!
+    checked: Boolean!
+    isSent: Boolean!
+}
+input MessageInput {
+    text: String!
+    attach: String
+    chat: Int!
+    datetime: String!
+    isSent: Boolean!
+}
+type UserExtended {
+    id: Int!
+    user: User!
+    lastMessage: String!
+    dateTime: String!
+}
+type User {
+    phone: ID!
+    firstName: String!
+    lastName: String!
+    password: String!
+    avatar: String!
+    receiver: Receiver
+    sender: Sender
+}
+
+input UserInput{
+    phone: ID!
+    firstName: String!
+    lastName: String!
+    password: String!
+    avatar: String!
+}
+input LoginInput{
+    phone: ID!
+    password: String!
+}
+input PhonesInput{
+    chat: Int!
+    isSender: Boolean!
+}

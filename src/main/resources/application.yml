@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/beeermessanger
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        '[format_sql]': true
+
+  graphql:
+    cors:
+      allow-credentials: true
+      allowed-origins: http://localhost:3000
+    graphiql:
+      enabled: true
+      endpoint:
+        graphql: /graphql
+        subscriptions: /graphql
+      subscriptions:
+        reconnect: false
+        timeout: 30
+    websocket:
+      path: /graphql
+
